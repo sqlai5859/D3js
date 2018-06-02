@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<style>
+body{font-family: helvetica;}
+svg{width:500px;
+	height:500px;
+	}
+	.top-label{
+			font-size: 13px;
+			text-transform: uppercase;
+			float:left;
+	}
+	.age-label{
+			text-align:right;
+			font-weight:bold;
+			width:90px;
+			padding-right:10px;
+	}
+	.clearfix{clear:both;}
+	.bar{fill:Blue;}
+	.bar-label{text-anchor:end;}
+	.axis-label{
+			text-anchor:middle;
+			font-size:13px;
+	}
+
+</style>
+</head>
+
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+var b=d3.select("body")
+b.append("h2").text("世界人口分布 2010");
+
+b.append("div").attr("class","top-label age-label")
+	.append("p").text("年龄分组");
+	
+b.append("div").attr("class","top-label")
+	.append("p").text("Proportion of Population by AGE");
+
+
+// 20170716: 使用data()和enter()	
+
+var height=10, gap=5,spacing=height+gap;
+var data=[1.6,1.5,2.1,2.6,3.4,4.5,5.1,6.6,8];
+var barlabel=["80+","70-79","60-69","50-59","40-49","30-39","20-29","10-19","01-09"];
+var axisData=[0,5,10];
+
+var g=b.append("svg");
+var b=g.append("g")
+			.attr("transform","translate(100,30) scale(43,1)")
+			.attr("class","bar");
+			
+<!-- b.selectAll("rect").data(data) -->
+		<!-- .enter().append("rect") -->
+		<!-- .attr("x",0) -->
+		<!-- .attr("height",height) -->
+		<!-- .attr("width",function(d,i){ return data[i]} ) -->
+		<!-- .attr("y", function(d,i){return i*20} ); -->
+
+
+var dat=[	{age:"80+  ", val:1.6, pos:0},
+			{age:"70-80", val:3.6, pos:1},
+			{age:"60-70", val:5.6, pos:2},
+			{age:"40-60", val:1.2, pos:3},
+			{age:"20-40", val:0.1, pos:4},
+			{age:"10-20", val:10.6, pos:5}
+			];
+
+b.selectAll("rect").data(dat).enter().append("rect")
+		.attr("x",0)		
+		.attr("height", height)
+		.attr("width",function(d){return d.val})
+		.attr("y",function(d,i){return i*10} )
+		
+</script>
+
+</body>
+
+</html>

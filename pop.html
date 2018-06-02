@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+
+<style>
+body{font-family: helvetica;}
+svg{width:500px;
+	height:500px;
+	}
+	.top-label{
+			font-size: 13px;
+			text-transform: uppercase;
+			float:left;
+	}
+	.age-label{
+			text-align:right;
+			font-weight:bold;
+			width:90px;
+			padding-right:10px;
+	}
+	.clearfix{clear:both;}
+	.bar{fill:Blue;}
+	.bar-label{text-anchor:end;}
+	.axis-label{
+			text-anchor:middle;
+			font-size:13px;
+	}
+
+</style>
+</head>
+
+<body>
+<script src="http://d3js.org/d3.v3.min.js"></script>
+
+<script>
+var b=d3.select("body")
+b.append("h2").text("世界人口分布 2010");
+
+b.append("div").attr("class","top-label age-label")
+	.append("p").text("年龄分组");
+	
+b.append("div").attr("class","top-label")
+	.append("p").text("Proportion of Population by AGE");
+
+
+// 用d3画图
+var height=10, gap=5,spacing=height+gap;
+var data=[1.6,1.5,2.1,2.6,3.4,4.5,5.1,6.6,8];
+var barlabel=["80+","70-79","60-69","50-59","40-49","30-39","20-29","10-19","01-09"];
+var axisData=[0,5,10];
+
+var g=b.append("svg");
+var b=g.append("g")
+			.attr("transform","translate(100,30) scale(43,1)")
+			.attr("class","bar");
+			
+for(var i=0;i<data.length; i++)	{
+	b.append("rect").attr("x",0).attr("y",i*spacing).attr("height",height).attr("width",data[i]);
+}	
+
+var b=g.append("g")
+			.attr("transform","translate(100,30)")
+			.attr("class","bar-label");
+
+for(var i=0;i<barlabel.length; i++)	{
+	b.append("text").attr("x",-10).attr("y",i*spacing+height*2/3).attr("height",height).text(barlabel[i]);
+}
+
+var b=g.append("g").attr("transform","translate(100,30)").attr("stroke","black");
+var b2=g.append("g").attr("transform","translate(100,30)").attr("class","axis-label");
+
+for(var i=0; i<axisData.length;i++){
+	b.append("line").attr("x1",axisData[i]*20)
+					.attr("x2",axisData[i]*20)
+					.attr("y1",0)
+					.attr("y2",10);
+	b2.append("text").attr("x",axisData[i]*20).attr("y",-2).text(axisData[i]+"%");
+}
+			
+	
+	
+</script>
+
+
+</body>
+
+</html>
